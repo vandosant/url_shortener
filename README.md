@@ -21,5 +21,5 @@ LINKS
 =======================
 GitHub Repo - https://github.com/craftninja/url_shortener
 Tracker Story - https://www.pivotaltracker.com/n/projects/1047396
-Staging Site -
-Production Site -
+Staging Site - tnybby.herokuapp.com
+Production Site - 
