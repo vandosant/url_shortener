@@ -9,7 +9,7 @@
   Original URL <%= original_url %>
 </div>
 <div class="container">
-  "Shortened" URL <%= URLS[url_index][original_url] %>
+  "Shortened" URL <a href="http://<%= original_url %>"><%= URLS[url_index][original_url] %></a>
 </div>
 <div class="container">
   <a href="/">'Shorten' another URL</a>
