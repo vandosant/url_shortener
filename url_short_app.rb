@@ -9,12 +9,23 @@ class UrlShortApp < Sinatra::Application
 
   post '/' do
     original_url = params[:url_to_shorten]
-    URLS << { original_url => "tny.herokuapp.com/#{URLS.length+1}" }
-    this_path = "/#{URLS.length.to_s}"
+    permalink = URLS.length
+    redirect_url = "#{request.host}/#{permalink}"
+    URLS << {
+      :original_url => original_url,
+      :permalink => permalink,
+      :redirect_url => redirect_url
+    }
+    this_path = "/#{permalink}?stats=true"
     redirect this_path
   end
 
   get '/:id' do
-    erb :show, locals: { :url_index => params[:id].to_i-1, :original_url => URLS[(params[:id].to_i)-1].keys[0] }
+    redirect_data = URLS[(params[:id].to_i)-1]
+    if params[:stats]
+      erb :show, locals: { :redirect_url => redirect_data[:redirect_url], :original_url => redirect_data[:original_url]}
+    else
+      redirect redirect_data[:original_url]
+    end
   end
 end
