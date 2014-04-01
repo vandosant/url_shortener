@@ -23,7 +23,7 @@ class UrlShortApp < Sinatra::Application
   get '/:id' do
     redirect_data = URLS[(params[:id].to_i)-1]
     if params[:stats]
-      erb :show, locals: { :redirect_url => redirect_data[:redirect_url], :original_url => redirect_data[:original_url]}
+      erb :show, locals: redirect_data
     else
       redirect redirect_data[:original_url]
     end
