@@ -18,7 +18,7 @@ feature "User can shorten a URL" do
     expect(page).to have_content("Original URL")
     expect(page).to have_content("www.google.com")
     expect(page).to have_content('"Shortened" URL')
-    expect(page).to have_content("/0")
+    expect(page).to have_content("/1")
     expect(page).to have_content("'Shorten' another URL")
   end
 end
