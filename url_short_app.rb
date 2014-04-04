@@ -17,8 +17,7 @@ class UrlShortApp < Sinatra::Application
       :redirect_url => redirect_url
     }
     URLS << redirect_data
-    this_path = "/#{permalink}?stats=true"
-    redirect this_path
+    redirect "/#{permalink}?stats=true"
   end
 
   get '/:id' do
