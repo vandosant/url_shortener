@@ -6,10 +6,10 @@
 </head>
 <body>
 <div class="container">
-  Original URL <%= original_url %>
+  Original URL <%= redirect_data[:original_url] %>
 </div>
 <div class="container">
-  "Shortened" URL <%= redirect_url %>
+  "Shortened" URL <%= redirect_data[:redirect_url] %>
 </div>
 <div class="container">
   <a href="/">'Shorten' another URL</a>

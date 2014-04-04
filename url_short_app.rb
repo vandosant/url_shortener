@@ -11,11 +11,12 @@ class UrlShortApp < Sinatra::Application
     original_url = params[:url_to_shorten]
     permalink = URLS.length
     redirect_url = "#{request.host}/#{permalink}"
-    URLS << {
+    redirect_data = {
       :original_url => original_url,
       :permalink => permalink,
       :redirect_url => redirect_url
     }
+    URLS << redirect_data
     this_path = "/#{permalink}?stats=true"
     redirect this_path
   end
@@ -23,7 +24,7 @@ class UrlShortApp < Sinatra::Application
   get '/:id' do
     redirect_data = URLS[(params[:id].to_i)-1]
     if params[:stats]
-      erb :show, locals: redirect_data
+      erb :show, locals: { :redirect_data => redirect_data }
     else
       redirect redirect_data[:original_url]
     end
