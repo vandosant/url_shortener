@@ -32,4 +32,13 @@ feature "User can shorten a URL" do
     expect(current_host).to eq "http://www.google.com"
 
   end
+
+  scenario "User gets an error message if they submit a blank form" do
+    visit '/'
+
+    fill_in "url_to_shorten", with: ""
+    click_on "Shorten"
+
+    expect(page).to have_content("The text you entered is not a valid URL")
+  end
 end

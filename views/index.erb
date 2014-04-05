@@ -5,6 +5,12 @@
   <link type="text/css" rel="stylesheet" href="../css/style.css">
 </head>
 <body>
+<% if error_status %>
+  <div class="error">
+    <%= 'The text you entered is not a valid URL' %>
+  </div>
+<% end %>
+</div>
 <form method="post" action="/">
   <div class="container">
     <input class="input" type="text" name="url_to_shorten" placeholder='Enter the URL you would like to "shorten"'/>
