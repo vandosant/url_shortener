@@ -5,14 +5,23 @@
   <link type="text/css" rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-<div class="container">
-  Original URL <%= redirect_data[:original_url] %>
+<div class="output_container">
+  <div class="url_labels">
+    Original URL<br/>
+    "Shortened" URL
+  </div>
+  <div class="url_output">
+    <%= redirect_data[:original_url] %>
+    <br/>
+    <%= redirect_data[:redirect_url] %>
+  </div>
+
 </div>
-<div class="container">
-  "Shortened" URL <%= redirect_data[:redirect_url] %>
-</div>
-<div class="container">
-  <a href="/">'Shorten' another URL</a>
+<div class="shorten_container">
+  <div class="shorten_buffer"></div>
+  <div class="shorten_another">
+    <a href="/">'Shorten' another URL</a>
+  </div>
 </div>
 </body>
 </html>
