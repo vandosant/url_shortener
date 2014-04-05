@@ -10,7 +10,7 @@ class UrlShortApp < Sinatra::Application
   post '/' do
     original_url = params[:url_to_shorten]
     permalink = URLS.length+1
-    redirect_url = "#{request.host}/#{permalink}"
+    redirect_url = "http://#{request.host}/#{permalink}"
     redirect_data = {
       :original_url => original_url,
       :permalink => permalink,
@@ -25,7 +25,7 @@ class UrlShortApp < Sinatra::Application
     if params[:stats]
       erb :show, locals: { :redirect_data => redirect_data }
     else
-      redirect redirect_data[:original_url]
+      redirect "http://#{redirect_data[:original_url]}"
     end
   end
 end
