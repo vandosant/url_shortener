@@ -1,4 +1,5 @@
 require 'sinatra/base'
+require 'uri'
 
 class UrlShortApp < Sinatra::Application
   URLS = []
@@ -9,11 +10,23 @@ class UrlShortApp < Sinatra::Application
   end
 
   post '/' do
-    if params[:url_to_shorten] == ""
+    form_input = params[:url_to_shorten]
+
+    unless form_input != "" && form_input.include?(".")
       settings.invalid_url = true
       redirect '/'
     end
-    original_url = params[:url_to_shorten]
+
+    unless form_input.include?("http://")
+      form_input = "http://#{form_input}"
+    end
+
+    unless form_input.match(URI.regexp)
+      settings.invalid_url = true
+      redirect '/'
+    end
+
+    original_url = form_input
     permalink = URLS.length+1
     redirect_url = "http://#{request.host}/#{permalink}"
     redirect_data = {
@@ -31,7 +44,7 @@ class UrlShortApp < Sinatra::Application
     if params[:stats]
       erb :show, locals: {:redirect_data => redirect_data}
     else
-      redirect "http://#{redirect_data[:original_url]}"
+      redirect redirect_data[:original_url]
     end
   end
 end

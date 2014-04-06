@@ -41,4 +41,13 @@ feature "User can shorten a URL" do
 
     expect(page).to have_content("The text you entered is not a valid URL")
   end
+
+  scenario "User gets an error message if they submit an invalid url" do
+    visit '/'
+
+    fill_in "url_to_shorten", with: "halfuahwafv;alsa"
+    click_on "Shorten"
+
+    expect(page).to have_content("The text you entered is not a valid URL")
+  end
 end
