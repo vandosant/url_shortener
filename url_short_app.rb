@@ -12,7 +12,7 @@ class UrlShortApp < Sinatra::Application
   post '/' do
     form_input = params[:url_to_shorten]
 
-    unless form_input != "" && form_input.include?(".")
+    unless form_input != "" && form_input.match(/[a-z]*[.][a-z]{2,4}/)
       settings.invalid_url = true
       redirect '/'
     end
