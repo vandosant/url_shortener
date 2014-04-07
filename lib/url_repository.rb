@@ -16,4 +16,8 @@ class UrlRepository
   def all
     @table.to_a.first
   end
+
+  def find(permalink)
+    @table.where(:permalink => permalink).to_a.first
+  end
 end
