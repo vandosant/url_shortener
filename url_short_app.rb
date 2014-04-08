@@ -1,9 +1,13 @@
 require 'sinatra/base'
 require 'uri'
+require_relative 'lib/url_repository'
+
+DB = Sequel.connect('postgres://gschool_user:password@localhost:5432/url_repository_development')
 
 class UrlShortApp < Sinatra::Application
   URLS = []
   set :invalid_url, false
+  set :url_repo, UrlRepository.new(DB)
 
   get '/' do
     erb :index, locals: {:error_status => settings.invalid_url}
@@ -12,7 +16,7 @@ class UrlShortApp < Sinatra::Application
   post '/' do
     form_input = params[:url_to_shorten]
 
-    unless form_input != "" && form_input.match(/[a-z]*[.][a-z]{2,4}/)
+    unless form_input != "" && form_input.match(/[a-zA-Z]*[.][a-zA-Z]{2,4}/)
       settings.invalid_url = true
       redirect '/'
     end
@@ -27,20 +31,13 @@ class UrlShortApp < Sinatra::Application
     end
 
     original_url = form_input
-    permalink = URLS.length+1
-    redirect_url = "http://#{request.host}/#{permalink}"
-    redirect_data = {
-      :original_url => original_url,
-      :permalink => permalink,
-      :redirect_url => redirect_url
-    }
-    URLS << redirect_data
+    permalink = settings.url_repo.add(original_url, request.base_url)
     settings.invalid_url = false
     redirect "/#{permalink}?stats=true"
   end
 
   get '/:id' do
-    redirect_data = URLS[(params[:id].to_i)-1]
+    redirect_data = settings.url_repo.find(params[:id])
     if params[:stats]
       erb :show, locals: {:redirect_data => redirect_data}
     else
