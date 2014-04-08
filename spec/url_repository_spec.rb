@@ -18,13 +18,13 @@ describe UrlRepository do
   it "is able to hold redirect data" do
     repo = UrlRepository.new(db)
 
-    repo.add("http://www.google.com", "localhost")
+    repo.add("http://www.google.com", "http://localhost:9292")
     actual = repo.all
 
     expected = {
       :permalink => 1,
       :original_url => "http://www.google.com",
-      :redirect_url => "http://localhost/1"
+      :redirect_url => "http://localhost:9292/1"
     }
 
     expect(actual).to eq expected
@@ -33,13 +33,13 @@ describe UrlRepository do
   it "is able to find a url by permalink" do
     repo = UrlRepository.new(db)
 
-    repo.add("http://www.google.com", "localhost")
+    repo.add("http://www.google.com", "http://localhost:9292")
     actual = repo.find(1)
 
     expected = {
       :permalink => 1,
       :original_url => "http://www.google.com",
-      :redirect_url => "http://localhost/1"
+      :redirect_url => "http://localhost:9292/1"
     }
 
     expect(actual).to eq expected

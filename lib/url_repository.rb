@@ -9,7 +9,7 @@ class UrlRepository
 
   def add(original_url, host)
     this_permalink = @table.insert(:original_url => original_url)
-    redirect_url = "http://#{host}/#{this_permalink}"
+    redirect_url = "#{host}/#{this_permalink}"
     @table.where(:permalink => this_permalink).update(:redirect_url => redirect_url)
 
     this_permalink
