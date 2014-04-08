@@ -4,6 +4,20 @@ require_relative ('../url_short_app')
 Capybara.app = UrlShortApp
 
 feature "User can shorten a URL" do
+  let(:db) { DB }
+
+  before do
+    db.create_table :url_table do
+      primary_key :permalink
+      String :original_url
+      String :redirect_url
+    end
+  end
+
+  after do
+    db.drop_table :url_table
+  end
+
   scenario "User can visit homepage and sees a form" do
     visit '/'
     expect(page).to have_button("Shorten")

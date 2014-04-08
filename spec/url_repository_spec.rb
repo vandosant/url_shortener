@@ -2,7 +2,7 @@ require 'spec_helper'
 require_relative '../lib/url_repository'
 
 describe UrlRepository do
-  let (:db) {Sequel.connect('postgres://gschool_user:password@localhost:5432/url_repository_test')}
+  let (:db) { DB }
 
   before do
     db.create_table :url_table do

@@ -2,8 +2,6 @@ require 'sinatra/base'
 require 'uri'
 require_relative 'lib/url_repository'
 
-DB = Sequel.connect('postgres://gschool_user:password@localhost:5432/url_repository_development')
-
 class UrlShortApp < Sinatra::Application
   URLS = []
   set :invalid_url, false
