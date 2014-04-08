@@ -8,9 +8,11 @@ class UrlRepository
   end
 
   def add(original_url, host)
-    @table.insert(:original_url => original_url)
-    redirect_url = "http://#{host}/#{@table.where(:original_url => original_url).to_a.first.values[0]}"
-    @table.where(:original_url => original_url).update(:redirect_url => redirect_url)
+    this_permalink = @table.insert(:original_url => original_url)
+    redirect_url = "http://#{host}/#{this_permalink}"
+    @table.where(:permalink => this_permalink).update(:redirect_url => redirect_url)
+
+    this_permalink
   end
 
   def all
