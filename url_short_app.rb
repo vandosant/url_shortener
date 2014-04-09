@@ -3,7 +3,6 @@ require 'uri'
 require_relative 'lib/url_repository'
 
 class UrlShortApp < Sinatra::Application
-  URLS = []
   set :invalid_url, false
   set :url_repo, UrlRepository.new(DB)
 

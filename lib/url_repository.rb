@@ -1,10 +1,8 @@
 require 'sequel'
-require 'sinatra/base'
 
 class UrlRepository
   def initialize(db)
-    @db = db
-    @table = @db[:url_table]
+    @table = db[:url_table]
   end
 
   def add(original_url, host)
