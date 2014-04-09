@@ -72,7 +72,7 @@ feature "User can shorten a URL" do
 
     visit '/1?stats=true'
 
-    expect(page).to have_content("Visits")
+    expect(page).to have_content("Total visits")
     expect(page).to have_content("5")
   end
 end
