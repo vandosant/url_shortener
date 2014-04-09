@@ -20,4 +20,9 @@ class UrlRepository
   def find(permalink)
     @table.where(:permalink => permalink).to_a.first
   end
+
+  def count_visit(row)
+    new_visits = row[:visits] + 1
+    @table.where(:permalink => row[:permalink]).update(:visits => new_visits)
+  end
 end

@@ -38,6 +38,7 @@ class UrlShortApp < Sinatra::Application
     if params[:stats]
       erb :show, locals: {:redirect_data => redirect_data}
     else
+      settings.url_repo.count_visit(redirect_data)
       redirect redirect_data[:original_url]
     end
   end

@@ -5,16 +5,14 @@ describe UrlRepository do
   let (:db) { DB }
 
   before do
-    db.create_table :url_table do
+    db.create_table! :url_table do
       primary_key :permalink
       String :original_url
       String :redirect_url
+      Integer :visits, default: 0
     end
   end
 
-  after do
-    db.drop_table :url_table
-  end
   it "is able to hold redirect data" do
     repo = UrlRepository.new(db)
 
@@ -24,7 +22,8 @@ describe UrlRepository do
     expected = {
       :permalink => 1,
       :original_url => "http://www.google.com",
-      :redirect_url => "http://localhost:9292/1"
+      :redirect_url => "http://localhost:9292/1",
+      :visits => 0
     }
 
     expect(actual).to eq expected
@@ -39,7 +38,8 @@ describe UrlRepository do
     expected = {
       :permalink => 1,
       :original_url => "http://www.google.com",
-      :redirect_url => "http://localhost:9292/1"
+      :redirect_url => "http://localhost:9292/1",
+      :visits => 0
     }
 
     expect(actual).to eq expected

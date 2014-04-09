@@ -8,12 +8,15 @@
 <div class="output_container">
   <div class="url_labels">
     Original URL<br/>
-    "Shortened" URL
+    "Shortened" URL<br /><br />
+    Total visits
   </div>
   <div class="url_output">
     <%= redirect_data[:original_url] %>
     <br/>
     <%= redirect_data[:redirect_url] %>
+    <br/><br />
+    <%= redirect_data[:visits] %>
   </div>
 
 </div>

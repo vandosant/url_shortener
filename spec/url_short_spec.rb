@@ -7,15 +7,12 @@ feature "User can shorten a URL" do
   let(:db) { DB }
 
   before do
-    db.create_table :url_table do
+    db.create_table! :url_table do
       primary_key :permalink
       String :original_url
       String :redirect_url
+      Integer :visits, default: 0
     end
-  end
-
-  after do
-    db.drop_table :url_table
   end
 
   scenario "User can visit homepage and sees a form" do
@@ -63,5 +60,19 @@ feature "User can shorten a URL" do
     click_on "Shorten"
 
     expect(page).to have_content("The text you entered is not a valid URL")
+  end
+
+  scenario "User sees the number of visits for a URL" do
+    visit '/'
+
+    fill_in "url_to_shorten", with: "www.github.com"
+    click_on "Shorten"
+
+    5.times { visit '/1' }
+
+    visit '/1?stats=true'
+
+    expect(page).to have_content("Visits")
+    expect(page).to have_content("5")
   end
 end
