@@ -10,10 +10,6 @@ class UrlShortApp < Sinatra::Application
     erb :index, locals: {:error_status => settings.invalid_url}
   end
 
-  get '/favicon.ico' do
-    "Nothing here"
-  end
-
   post '/' do
     form_input = params[:url_to_shorten]
 
