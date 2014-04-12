@@ -68,11 +68,12 @@ feature "User can shorten a URL" do
     fill_in "url_to_shorten", with: "www.github.com"
     click_on "Shorten"
 
+    stats_path = current_url
     redirect_path = current_url.gsub(/[?].+/, '')
 
     5.times { visit redirect_path}
 
-    visit '/1?stats=true'
+    visit stats_path
 
     expect(page).to have_content("Total visits")
     expect(page).to have_content("5")
