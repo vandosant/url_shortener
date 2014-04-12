@@ -44,4 +44,20 @@ describe UrlRepository do
 
     expect(actual).to eq expected
   end
+
+  it "generates a random permalink" do
+    repo = UrlRepository.new(db)
+    random_number = rand(100000)
+    repo.add("http://www.google.com", "http://localhost:9292", random_number)
+    actual = repo.find(1)
+
+    expected = {
+      :permalink => 1,
+      :original_url => "http://www.google.com",
+      :redirect_url => "http://localhost:9292/#{random_number}",
+      :visits => 0
+    }
+
+    expect(actual).to eq expected
+  end
 end

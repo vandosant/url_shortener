@@ -28,13 +28,14 @@ class UrlShortApp < Sinatra::Application
     end
 
     original_url = form_input
-    permalink = settings.url_repo.add(original_url, request.base_url)
+    random_number = rand(100000)
+    settings.url_repo.add(original_url, request.base_url, random_number)
     settings.invalid_url = false
-    redirect "/#{permalink}?stats=true"
+    redirect "/#{random_number}?stats=true"
   end
 
   get '/:id' do
-    redirect_data = settings.url_repo.find(params[:id])
+    redirect_data = settings.url_repo.find_by_path(request.base_url, params[:id])
     if params[:stats]
       erb :show, locals: {:redirect_data => redirect_data}
     else
