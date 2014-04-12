@@ -68,7 +68,9 @@ feature "User can shorten a URL" do
     fill_in "url_to_shorten", with: "www.github.com"
     click_on "Shorten"
 
-    5.times { visit '/1' }
+    redirect_path = current_url.gsub(/[?].+/, '')
+
+    5.times { visit redirect_path}
 
     visit '/1?stats=true'
 
